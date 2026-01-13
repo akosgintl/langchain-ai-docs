@@ -7,7 +7,7 @@ This guide explains how to add semantic search to your deployment's cross-thread
 
 ## Prerequisites
 
-* A deployment (refer to [how to set up an application for deployment](/langsmith/setup-app-requirements-txt)) and details on [hosting options](/langsmith/hosting).
+* A deployment (refer to [how to set up an application for deployment](/langsmith/setup-app-requirements-txt)) and details on [hosting options](/langsmith/platform-setup).
 * API keys for your embedding provider (in this case, OpenAI).
 * `langchain >= 0.3.8` (if you specify using the string format below).
 
@@ -67,7 +67,7 @@ def search_memory(state: State, *, store: BaseStore):
     return results
 ```
 
-## Custom Embeddings
+## Custom embeddings
 
 If you want to use custom embeddings, you can pass a path to a custom embedding function:
 
@@ -128,8 +128,8 @@ results = await search_store()
 ---
 
 <Callout icon="pen-to-square" iconType="regular">
-    [Edit the source of this page on GitHub.](https://github.com/langchain-ai/docs/edit/main/src/langsmith/semantic-search.mdx)
+    [Edit this page on GitHub](https://github.com/langchain-ai/docs/edit/main/src/langsmith/semantic-search.mdx) or [file an issue](https://github.com/langchain-ai/docs/issues/new/choose).
 </Callout>
 <Tip icon="terminal" iconType="regular">
-    [Connect these docs programmatically](/use-these-docs) to Claude, VSCode, and more via MCP for    real-time answers.
+    [Connect these docs](/use-these-docs) to Claude, VSCode, and more via MCP for real-time answers.
 </Tip>

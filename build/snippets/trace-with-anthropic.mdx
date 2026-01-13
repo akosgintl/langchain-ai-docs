@@ -17,7 +17,7 @@ from langsmith.wrappers import wrap_anthropic
 
 client = wrap_anthropic(anthropic.Anthropic())
 
-# You can also wrap the async client as well
+# You can also wrap the async client
 # async_client = wrap_anthropic(anthropic.AsyncAnthropic())
 
 @traceable(run_type="tool", name="Retrieve Context")
@@ -31,7 +31,7 @@ def chat_pipeline(question: str):
         { "role": "user", "content": f"Question: {question}\nContext: {context}"}
     ]
     messages = client.messages.create(
-      model="claude-sonnet-4-20250514",
+      model="claude-sonnet-4-5-20250929",
       messages=messages,
       max_tokens=1024,
       system="You are a helpful assistant. Please respond to the user's request only based on the given context."

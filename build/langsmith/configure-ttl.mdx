@@ -2,6 +2,7 @@
 title: How to add TTLs to your application
 sidebarTitle: Add TTLs to your application
 ---
+
 <Tip>
 **Prerequisites**
 This guide assumes familiarity with [LangSmith](/langsmith/home), [Persistence](/oss/python/langgraph/persistence), and [Cross-thread persistence](/oss/python/langgraph/persistence#memory-store) concepts.
@@ -9,9 +10,9 @@ This guide assumes familiarity with [LangSmith](/langsmith/home), [Persistence](
 
 LangSmith persists both [checkpoints](/oss/python/langgraph/persistence#checkpoints) (thread state) and [cross-thread memories](/oss/python/langgraph/persistence#memory-store) (store items). Configure Time-to-Live (TTL) policies in `langgraph.json` to automatically manage the lifecycle of this data, preventing indefinite accumulation.
 
-## Configuring Checkpoint TTL
+## Configuring thread and checkpoint TTL
 
-Checkpoints capture the state of conversation threads. Setting a TTL ensures old checkpoints and threads are automatically deleted.
+Checkpoints capture the state of conversation threads. Setting a TTL ensures old checkpoints and thread metadata are automatically deleted.
 
 Add a `checkpointer.ttl` configuration to your `langgraph.json` file:
 
@@ -35,7 +36,7 @@ Add a `checkpointer.ttl` configuration to your `langgraph.json` file:
 * `sweep_interval_minutes`: Defines how often, in minutes, the system checks for expired checkpoints.
 * `default_ttl`: Sets the default lifespan of threads (and corresponding checkpoints) in minutes (e.g., 43200 minutes = 30 days). Applies only to checkpoints created after this configuration is deployed; existing checkpoints/threads are not changed. To clear older data, delete it explicitly.
 
-## Configuring Store Item TTL
+## Configuring store item TTL
 
 Store items allow cross-thread data persistence. Configuring TTL for store items helps manage memory by removing stale data.
 
@@ -61,7 +62,7 @@ Add a `store.ttl` configuration to your `langgraph.json` file:
 * `sweep_interval_minutes`: (Optional) Defines how often, in minutes, the system checks for expired items. If omitted, no sweeping occurs.
 * `default_ttl`: (Optional) Sets the default lifespan of store items in minutes (e.g., 10080 minutes = 7 days). Applies only to items created after this configuration is deployed; existing items are not changed. If you need to clear older items, delete them manually. If omitted, items do not expire by default.
 
-## Combining TTL Configurations
+## Combining TTL configurations
 
 You can configure TTLs for both checkpoints and store items in the same `langgraph.json` file to set different policies for each data type. Here is an example:
 
@@ -88,11 +89,28 @@ You can configure TTLs for both checkpoints and store items in the same `langgra
 }
 ```
 
-## Runtime Overrides
+## Configure per-thread TTL
+
+You can apply [TTL configurations per-thread](https://reference.langchain.com/python/langsmith/deployment/sdk/#langgraph_sdk.client.ThreadsClient.create).
+
+```python
+thread = await client.threads.create(
+    ttl={
+        "strategy": "delete",
+        "ttl": 43200  # 30 days in minutes
+    }
+)
+```
+
+<Note>
+Thread-level TTLs will also delete all associated checkpoints. As a result, you can set a thread-level TTL and avoid setting a separate TTL for checkpoints.
+</Note>
+
+## Runtime overrides
 
 The default `store.ttl` settings from `langgraph.json` can be overridden at runtime by providing specific TTL values in SDK method calls like `get`, `put`, and `search`.
 
-## Deployment Process
+## Deployment process
 
 After configuring TTLs in `langgraph.json`, deploy or restart your LangGraph application for the changes to take effect. Use `langgraph dev` for local development or `langgraph up` for Docker deployment.
 
@@ -101,8 +119,8 @@ See the [langgraph.json CLI reference](https://langchain-ai.github.io/langgraph/
 ---
 
 <Callout icon="pen-to-square" iconType="regular">
-    [Edit the source of this page on GitHub.](https://github.com/langchain-ai/docs/edit/main/src/langsmith/configure-ttl.mdx)
+    [Edit this page on GitHub](https://github.com/langchain-ai/docs/edit/main/src/langsmith/configure-ttl.mdx) or [file an issue](https://github.com/langchain-ai/docs/issues/new/choose).
 </Callout>
 <Tip icon="terminal" iconType="regular">
-    [Connect these docs programmatically](/use-these-docs) to Claude, VSCode, and more via MCP for    real-time answers.
+    [Connect these docs](/use-these-docs) to Claude, VSCode, and more via MCP for real-time answers.
 </Tip>
