@@ -80,8 +80,6 @@ graph.invoke({"foo": "", "bar":[]}, config)
 
 
 
-
-
 After we run the graph, we expect to see exactly 4 checkpoints:
 
 * Empty checkpoint with [`START`](https://reference.langchain.com/python/langgraph/constants/#langgraph.constants.START) as the next node to be executed
@@ -616,8 +614,6 @@ checkpointer.setup()
 ```
 
 When running on LangSmith, encryption is automatically enabled whenever `LANGGRAPH_AES_KEY` is present, so you only need to provide the environment variable. Other encryption schemes can be used by implementing [`CipherProtocol`](https://reference.langchain.com/python/langgraph/checkpoints/#langgraph.checkpoint.serde.base.CipherProtocol) and supplying it to [`EncryptedSerializer`](https://reference.langchain.com/python/langgraph/checkpoints/#langgraph.checkpoint.serde.encrypted.EncryptedSerializer).
-
-
 
 
 ## Capabilities
