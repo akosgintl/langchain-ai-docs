@@ -1139,6 +1139,7 @@
                       "group": "Evaluation techniques",
                       "pages": [
                         "langsmith/experiment-configuration",
+                        "langsmith/evaluate-with-retry",
                         "langsmith/define-target-function",
                         "langsmith/evaluate-on-intermediate-steps",
                         "langsmith/multiple-scores",
@@ -1391,14 +1392,6 @@
                   ]
                 },
                 {
-                  "group": "Self-hosted cloud architecture",
-                  "pages": [
-                    "langsmith/aws-self-hosted",
-                    "langsmith/azure-self-hosted",
-                    "langsmith/gcp-self-hosted"
-                  ]
-                },
-                {
                   "group": "Hybrid",
                   "pages": [
                     "langsmith/hybrid",
@@ -1409,6 +1402,14 @@
                   "group": "Self-hosted",
                   "pages": [
                     "langsmith/self-hosted",
+                    {
+                      "group": "Get started by cloud provider",
+                      "pages": [
+                        "langsmith/aws-self-hosted",
+                        "langsmith/azure-self-hosted",
+                        "langsmith/gcp-self-hosted"
+                      ]
+                    },
                     {
                       "group": "Setup guides",
                       "pages": [
@@ -1526,10 +1527,11 @@
                           "source": "https://api.host.langchain.com/openapi.json"
                         }
                   },
-                    "langsmith/cli",
-                    "langsmith/remote-graph",
-                    "langsmith/env-var"
-                  ]
+                      "langsmith/smith-deployments-sdk",
+                      "langsmith/cli",
+                      "langsmith/remote-graph",
+                      "langsmith/env-var"
+                ]
                 },
                 {
                   "group": "Releases",
@@ -2011,6 +2013,14 @@
     {
       "source": "/oss/javascript/langchain/supervisor",
       "destination": "/oss/javascript/langchain/multi-agent/subagents-personal-assistant"
+    },
+    {
+      "source": "/langsmith/sdk",
+      "destination": "/langsmith/reference"
+    },
+    {
+      "source": "/langsmith/code-evaluator",
+      "destination": "/langsmith/code-evaluator-ui"
     }
   ]
 }
