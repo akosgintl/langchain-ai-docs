@@ -716,6 +716,26 @@ graph.addNode("myNode", (state) => {
 });
 ```
 
+Note that [Command](https://reference.langchain.com/javascript/classes/_langchain_langgraph.index.Command.html) only adds dynamic edges, while static edges will still execute. In other words, [Command](https://reference.langchain.com/javascript/classes/_langchain_langgraph.index.Command.html) doesn't override static edges.
+
+```typescript
+graph.addNode("nodeA", (state) => {
+ if (state.foo === "bar") {
+   return new Command({
+     update: { foo: "baz" },
+     goto: "myOtherNode",
+   });
+ }
+});
+
+// Add a static edge from "nodeA" to "nodeB"
+graph.addEdge("nodeA", "nodeB")
+
+// Command will NOT prevent "nodeA" from going to "nodeB"
+```
+
+In the example above, **"nodeA"** will go to both **"nodeB"** and **"myOtherNode"**.
+
 When using [`Command`](https://reference.langchain.com/javascript/classes/_langchain_langgraph.index.Command.html) in your node functions, you must add the `ends` parameter when adding the node to specify which nodes it can route to:
 
 ```typescript

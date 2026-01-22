@@ -520,6 +520,21 @@ def my_node(state: State) -> Command[Literal["my_other_node"]]:
         return Command(update={"foo": "baz"}, goto="my_other_node")
 ```
 
+Note that [`Command`](https://reference.langchain.com/python/langgraph/types/#langgraph.types.Command) only adds dynamic edges, while static edges will still execute. In other words, [`Command`](https://reference.langchain.com/python/langgraph/types/#langgraph.types.Command) doesn't override static edges.
+
+```python
+def node_a(state: State) -> Command[Literal["my_other_node"]]:
+   if state["foo"] == "bar":
+       return Command(update={"foo": "baz"}, goto="my_other_node")
+
+# Add a static edge from "node_a" to "node_b"
+graph.add_edge("node_a", "node_b")
+
+# Command will NOT prevent "node_a" from going to "node_b"
+```
+
+In the example above, **"node_a"** will go to both **"node_b"** and **"my_other_node"**.
+
 <Note>
 
 When returning [`Command`](https://reference.langchain.com/python/langgraph/types/#langgraph.types.Command) in your node functions, you must add return type annotations with the list of node names the node is routing to, e.g. `Command[Literal["my_other_node"]]`. This is necessary for the graph rendering and tells LangGraph that `my_node` can navigate to `my_other_node`.
