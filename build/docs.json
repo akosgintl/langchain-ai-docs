@@ -901,6 +901,7 @@
                     "langsmith/workload-isolation",
                     "langsmith/manage-organization-by-api",
                     "langsmith/billing",
+                    "langsmith/granular-usage",
                     "langsmith/set-up-resource-tags",
                     "langsmith/user-management"
                   ]
@@ -965,7 +966,8 @@
                         "langsmith/trace-with-vercel-ai-sdk",
                         "langsmith/trace-with-livekit",
                         "langsmith/trace-with-mastra",
-                        "langsmith/trace-with-pipecat"
+                        "langsmith/trace-with-pipecat",
+                        "langsmith/trace-with-temporal"
                       ]
                     },
                     {
