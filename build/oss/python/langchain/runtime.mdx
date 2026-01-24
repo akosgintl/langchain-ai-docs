@@ -91,7 +91,7 @@ def fetch_user_email_preferences(runtime: ToolRuntime[Context]) -> str:  # [!cod
 
 You can access runtime information in middleware to create dynamic prompts, modify messages, or control agent behavior based on user context.
 
-Use `request.runtime` to access the [`Runtime`](https://reference.langchain.com/python/langgraph/runtime/#langgraph.runtime.Runtime) object inside middleware decorators. The runtime object is available in the [`ModelRequest`](https://reference.langchain.com/python/langchain/middleware/#langchain.agents.middleware.ModelRequest) parameter passed to middleware functions.
+Use the `Runtime` parameter to access the [`Runtime`](https://reference.langchain.com/python/langgraph/runtime/#langgraph.runtime.Runtime) object inside [node-style hooks](/oss/python/langchain/middleware/custom#node-style-hooks).  For [wrap-style hooks](/oss/python/langchain/middleware/custom#wrap-style-hooks), the `Runtime` object is available inside the [`ModelRequest`](https://reference.langchain.com/python/langchain/middleware/#langchain.agents.middleware.ModelRequest) parameter.
 
 ```python
 from dataclasses import dataclass
